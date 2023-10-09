@@ -1,0 +1,21 @@
+Dossier Projet 1 - Calcul Scientifique Numerique
+Approximation d'un probleme de frontiere libre par une methode analytique
+
+Author: COMPAIN Marie
+
+CONTENU DU DOSSIER:
+
+- Makefile (cf partie 'COMPILATION' pour le detail des regles de compilation)
+/!\ si besoin penser a changer le compilateur C utilise dans le Makefile;
+- methodesnum.c: code en C des methodes numeriques utilisees dans ce projet (quadrature de Gauss-Legendre, methode de Newton);
+- methodesnum.h: fichier header de methodesnum.c;
+- donnees.c: code en C qui permet de definir les donnees du probleme (longueurs du domaine, nombre de termes dans les sommes, nombre de points de quadrature)
+=> pour changer les donnees qu'on utilise on les change dans ces fonctions (pour que le changement s'applique partout);
+- donnees.h: fichier header de donnees.h;
+
+
+COMPILATION:
+
+regle 'partie1': compile le code pour la partie 1 du projet (question 4)
+regle 'partie2': compile le code pour la partie 2 du projet (question 6)
+regle 'clean': supprime les fichiers binaires et les fichiers executables
