@@ -8,8 +8,9 @@
 *************************/
 
 float T_ex(float x, float y);
-float f_0(float x);
+float f_0(float x, int m, float alpha);
 float f_3_ex(float x);
+float q_0(float x);
 
 /************************
  fonctions a approcher
@@ -17,6 +18,7 @@ float f_3_ex(float x);
 
 float inte_h(float x, int m, float alpha);
 float h(float x);
+float inte_f3(float x, int m, float alpha);
 float f_3(float x, float alpha);
 
 /*************************
@@ -43,7 +45,6 @@ float B_m(int m, float alpha);
 
 float T_tilde(float x, float y, float alpha);
 
-float fctn_test(float x, int m, float alpha);
 
 
 #endif

@@ -14,13 +14,13 @@
 float T_ex(float x, float y) {
     /* fonction solution exacte 
     x: reel dont on veut calculer l'image */
-    return cosh(M_PI*y)*sin(M_PI*x);
+    return cosh(M_PI*y)*cos(M_PI*x);
 }
 
-float f_0(float x) {
+float f_0(float x, int m, float alpha) {
     /* fonction f_0 condition limite sur Gamma_0 
     x: reel dont on veut calculer l'image */
-    return sin(M_PI*x);
+    return cos(M_PI*x);
 }
 
 float f_3_ex(float x) {
@@ -28,14 +28,15 @@ float f_3_ex(float x) {
     x: reel dont on veut calculer l'image */
 
     //on recupere d'abord les donnees du probleme
-    float L,H;
-    int M,n;
-    L = recup_L(L);
+    float H;
     H = recup_H(H);
-    M = recup_M(M);
-    n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return cosh(M_PI*H)*sin(M_PI*x);
+    return cosh(M_PI*H)*cos(M_PI*x);
+}
+
+float q_0(float x) {
+    /* fonction q_0 exacte condition limite sur Gamma_0 */
+    return 0.;
 }
 
 /************************
@@ -46,13 +47,10 @@ float inte_h(float x, int m, float alpha) {
     /* fonction a integrer dans l'expression de h */
     //on recupere d'abord les donnees du probleme
     float L,H;
-    int M,n;
     L = recup_L(L);
     H = recup_H(H);
-    M = recup_M(M);
-    n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return cosh(m*M_PI*H/L)*cos(m*M_PI*x/L);
+    return cos(m*M_PI*x/L);
 }
 
 float h(float x){
@@ -68,18 +66,42 @@ float h(float x){
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    S = (1/(L*H))*gauss(n,f_0,0,L,0,0);
+    S = -q_0(x) + (1/(L*H))*gauss(n,f_0,0,L,0,0);
     for (i = 1; i<=M; i++) {
-        S = S + (2*M_PI/pow(L,2)) * (i*cos(i*M_PI*x/L)/sinh(i*M_PI*x/L)) * f_0(x) * gauss(n,inte_h,0,L,i,0);
+        S = S + (2*M_PI/pow(L,2)) * (i*cos(i*M_PI*x/L)/sinh(i*M_PI*x/L)) * f_0(x,i,0.) * cosh(i*M_PI*H/L) * gauss(n,inte_h,0,L,i,0);
     }
     return S;
 }
 
+float inte_f3(float x, int m, float alpha) {
+    /* fonction que l'on integre dans l'expression de f_3 */
+    //on recupere les donnees du probleme
+    float L;
+    L = recup_L(L);
+    return cos(m*M_PI*x/L)*h(x);
+}
 
 float f_3(float x, float alpha){
     /* fonction qui approche f_3 
     x: reel dont on veut calculer l'image par f_3
     alpha: parametre de Lavrentier */
+    int i;
+    float S;
+    //on recupere les donnees du probleme
+    float L,H;
+    int M,n;
+    L = recup_L(L);
+    H = recup_H(H);
+    M = recup_M(M);
+    n = recup_n(n);
+
+    S = (1./alpha)*h(x) - (1./alpha)*(H/(alpha*H + 1.));
+    printf("%f\n",S);
+    for (i=1; i <= M; i++) {
+        S = S - (1./alpha)*((pow(L,2)*sinh((i*M_PI*H)/L)/(i*M_PI+alpha*pow(L,2)*sinh((i*M_PI*H)/L)))*cos((i*M_PI*x)/L)*gauss(n,inte_f3,0,L,i,alpha));
+        printf("%f\n",S);
+    }
+    return S;
 }
 
 /*************************
@@ -92,7 +114,7 @@ float B0_f3_f0(float x, int m, float alpha){
     car en argument de gauss() il faut une fonction
     x: reel dont on veut calculer l'image */
     m = 0; // ici on a le terme 0 de la somme
-    return f_3(x,alpha)- f_0(x);
+    return f_3(x,alpha)- f_0(x,m,alpha);
 }
 
 float Am_f3_f0(float x, int m, float alpha){
@@ -108,7 +130,7 @@ float Am_f3_f0(float x, int m, float alpha){
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (f_3(x,alpha) - exp((-m*M_PI*H)/L)*f_0(x))*cos((m*M_PI*x)/L);
+    return (f_3(x,alpha) - exp((-m*M_PI*H)/L)*f_0(x,m,alpha))*cos((m*M_PI*x)/L);
 }
 
 float Bm_f3_f0(float x, int m, float alpha) {
@@ -124,7 +146,7 @@ float Bm_f3_f0(float x, int m, float alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (exp((m*M_PI*H)/L)*f_3(x,alpha) - f_0(x))*cos((m*M_PI*x)/L);
+    return (exp((m*M_PI*H)/L)*f_3(x,alpha) - f_0(x,m,alpha))*cos((m*M_PI*x)/L);
 }
 
 /************************
@@ -204,8 +226,4 @@ float T_tilde(float x, float y, float alpha) {
         T = T + (A_m(i,alpha)*exp(i*M_PI*y/L) + B_m(i,alpha)*exp(-i*M_PI*y/L))*cos(i*M_PI*x/L);
     }
     return T;
-}
-
-float fctn_test(float x, int m, float alpha) {
-    return (pow(x+1,2));
 }

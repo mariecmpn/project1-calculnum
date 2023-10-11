@@ -18,10 +18,19 @@ int main() {
     n = recup_n(n);
 
 
-    // test methode num gauss pour une fonction dont on connait l'integrale
-    float err;
-    err = fabs(gauss(n,fctn_test,-1,1,0,0)-8./3.);
-    printf("%s%f", "Erreur = ", err);
+    // test f_3
+    float x = 0.5;
+    //float y = 0.5;
+    /*float app, ex;
+
+    app = f_3(x, 1.E-1);
+    ex = f_3_ex(x);
+
+    printf("%s%f\n", "Valeur approchee ", app);
+    printf("%s%f\n", "Valeur exacte ", ex);*/
+
+    x = gauss(n,inte_h,0,L,1,0);
+    printf("%f", x);
 
     // on retourne 0
     return 0;
