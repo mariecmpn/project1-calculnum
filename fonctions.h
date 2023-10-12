@@ -7,43 +7,47 @@
  aux limites et exactes
 *************************/
 
-float T_ex(float x, float y);
-float f_0(float x, int m, float alpha);
-float f_3_ex(float x);
-float q_0(float x);
+double T_ex(double x, double y);
+double f_0(double x, int m, double alpha);
+double f_3_ex(double x);
+double q_0(double x);
 
 /************************
  fonctions a approcher
 *************************/
 
-float inte_h(float x, int m, float alpha);
-float h(float x);
-float inte_f3(float x, int m, float alpha);
-float f_3(float x, float alpha);
+double inte_h(double x, int m, double alpha);
+double h(double x);
+double inte_f3(double x, int m, double alpha);
+double f_3(double x, double alpha);
 
 /*************************
  fonctions a integrer pour
  les coefficients
 **************************/
 
-float B0_f3_f0(float x, int m, float alpha);
-float Am_f3_f0(float x, int m, float alpha);
-float Bm_f3_f0(float x, int m, float alpha);
+double B0_f3_f0(double x, int m, double alpha);
+double Am_f3_f0(double x, int m, double alpha);
+double Bm_f3_f0(double x, int m, double alpha);
 
 /************************
  fonctions coefficients
 *************************/
 
-float A_0();
-float B_0(float alpha);
-float A_m(int m, float alpha);
-float B_m(int m, float alpha);
+double A_0();
+double B_0(double alpha);
+double A_m(int m, double alpha);
+double B_m(int m, double alpha);
 
 /************************
  fonction T tilde approchee
 *************************/
 
-float T_tilde(float x, float y, float alpha);
+double T_tilde(double x, double y, double alpha);
+
+
+double fctn_test(double x, double y, double alpha);
+double derivee_test(double x, double y, double alpha);
 
 
 

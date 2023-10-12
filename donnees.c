@@ -4,12 +4,12 @@
 #include "donnees.h"
 
 
-float recup_L(float L) {
+double recup_L(float L) {
     /* fonction permettant de recuperer la valeur de la longueur (horizontale) du domaine */
     return 1.;
 }
 
-float recup_H(float H) {
+double recup_H(float H) {
     /* fonction permettant de recuperer la valeur de la longueur (verticale) du domaine */
     return 1.;
 }

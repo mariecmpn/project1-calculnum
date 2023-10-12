@@ -8,7 +8,7 @@
 
 int main() {
     // definition des variables
-    float L, H;
+    double L, H;
     int M, n;
 
     // recuperation des donnees du probleme definies dans donnees.c
@@ -19,18 +19,31 @@ int main() {
 
 
     // test f_3
-    float x = 0.5;
-    //float y = 0.5;
-    /*float app, ex;
+    /*double x = 0.1;
+    double y = 0.5;
+    float app, ex;
 
-    app = f_3(x, 1.E-1);
+    app = f_3(x, 1.E-10);
     ex = f_3_ex(x);
 
     printf("%s%f\n", "Valeur approchee ", app);
     printf("%s%f\n", "Valeur exacte ", ex);*/
 
-    x = gauss(n,inte_h,0,L,1,0);
-    printf("%f", x);
+    // test newton
+
+    double err;
+    double newt = newton(0., fctn_test, derivee_test, 0.00001, 0.);
+
+    err = fabs(newt-1./3.);
+    printf("%f", err);
+
+    /*double alpha = 1.E-1;
+    //y = (1./alpha)*h(x);
+    y = h(x);
+    printf("%f\n", y);
+    y = (1./alpha)*(H/(alpha*H + 1.));
+    printf("%f\n", y);*/
+
 
     // on retourne 0
     return 0;
