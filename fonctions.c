@@ -97,10 +97,10 @@ double f_3(double x, double alpha){
     n = recup_n(n);
 
     S = (1./alpha)*h(x) - (1./alpha)*(H/(alpha*H + 1.));
-    printf("%f\n",S);
+    //printf("%f\n",S);
     for (i=1; i <= M; i++) {
         S = S - (1./alpha)*((pow(L,2)*sinh((i*M_PI*H)/L)/(i*M_PI+alpha*pow(L,2)*sinh((i*M_PI*H)/L)))*cos((i*M_PI*x)/L)*gauss(n,inte_f3,0,L,i,alpha));
-        printf("%f\n",S);
+        //printf("%f\n",S);
     }
     return S;
 }

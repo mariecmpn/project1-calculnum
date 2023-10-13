@@ -11,8 +11,8 @@ int main() {
      definition des variables 
     ****************************/ 
 
-    int i; // entier pour les boucles for
-    int N = 100; // nombre de points de maillage en x
+    int i, j; // entier pour les boucles for
+    int N = 50; // nombre de points de maillage en x
     double h = 1./(N-1); // pas de maillage en x
     double *Points = malloc(sizeof(int[N])); // tableau qui contient les valeurs des x_i
 
@@ -51,14 +51,14 @@ int main() {
 
 
     // test f_3
-    double x = 0.5;
+    /*double x = 0.5;
     float app, ex;
 
     app = T_tilde(x, y, 1.E-10);
     ex = T_ex(x,y);
 
     printf("%s%f\n", "Valeur approchee ", app);
-    printf("%s%f\n", "Valeur exacte ", ex);
+    printf("%s%f\n", "Valeur exacte ", ex);*/
 
 
     /*double alpha = 1.E-1;
@@ -68,6 +68,17 @@ int main() {
     y = (1./alpha)*(H/(alpha*H + 1.));
     printf("%f\n", y);*/
 
+    y = H; // on se place sur Gamma_3
+    FILE *approche;
+    approche = fopen("approche_1.txt", "w");
+    for (i = 0; i < 20; i++) {
+        for (j = 0; j < N; j++) {
+            T_app[j] = T_tilde(Points[j], y, Alpha[i]);
+            fprintf(approche, "%f", T_app[j]);
+            fputs(" ", approche);
+        }
+        fputs("\n", approche);
+    }
 
     /***************************
     enregistrement dans un 
@@ -79,13 +90,20 @@ int main() {
     }
 
     FILE *exact;
-    exact = fopen("exact_1.txt", "w");
+    exact = fopen("exact_1.txt", "w"); // on ouvre le fichier
 
-    fclose(exact);
+    for (i = 0; i<N; i++) { // on ecrit dans le fichier
+        fprintf(exact, "%f", T_exact[i]);
+        fputs(" ", exact);
+    }
+
+    fclose(exact); // on ferme le fichier
 
 
     // on desalloue l'espace memoire des tableaux alloues dynamiquement
     free(Points);
+    free(T_exact);
+    free(T_app);
 
     // on retourne 0
     return 0;

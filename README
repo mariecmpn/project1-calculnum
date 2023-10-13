@@ -15,6 +15,11 @@ CONTENU DU DOSSIER:
 - fonctions.c: code en C des fonctions utilisees dans la partie 1 du projet (fonctions exactes, approchees...);
 - fonctions.h: fichier header de fonctions.c;
 - main.c: programme principal pour la partie 1 du projet;
+- fonctions2.c: code en C des fonctions utilisees pour la partie2 du projet (qui dependent des fonctions de la partie1);
+- fonctions2.h: fichier headeer de fonctions2.c;
+- main2.c: programme principal pour la partie 2 du projet;
+- Compte-rendu_COMPAIN.pdf: Compte-rendu du projet au format pdf;
+- Compte-rendu_COMPAIN.tex: Compte-rendu du projet au format tex.
 
 
 COMPILATION:
