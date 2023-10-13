@@ -59,7 +59,7 @@ double gauss(int n, double (*f)(double,int,double), double a, double b, int m, d
 
 double newton(double x, double (*fonction)(double,double,double), double (*derivee)(double,double,double), double eps, double alpha) {
     /* fonction pour l'algorithme de Newton 
-    x: point de Gamma_0 pour lequel on cherche y
+    x: point de Gamma_0 fixe pour lequel on cherche y
     fonction: fonction pour laquelle on cherche y telle que f(x,y) = 0
     derivee: derivee par rapport a y de notre fonction
     eps: tolerance epsilon */

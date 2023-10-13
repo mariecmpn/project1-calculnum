@@ -46,8 +46,7 @@ double B_m(int m, double alpha);
 double T_tilde(double x, double y, double alpha);
 
 
-double fctn_test(double x, double y, double alpha);
-double derivee_test(double x, double y, double alpha);
+
 
 
 

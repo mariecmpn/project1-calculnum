@@ -229,10 +229,3 @@ double T_tilde(double x, double y, double alpha) {
     return T;
 }
 
-double fctn_test(double x, double y, double alpha) {
-    return 3.*y+x-1.;
-}
-
-double derivee_test(double x, double y, double alpha) {
-    return 3.;
-}
