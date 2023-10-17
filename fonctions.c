@@ -14,13 +14,15 @@
 double T_ex(double x, double y) {
     /* fonction solution exacte 
     x: reel dont on veut calculer l'image */
-    return cosh(M_PI*y)*cos(M_PI*x);
+    double r = cosh(M_PI*y)*cos(M_PI*x);
+    return r;
 }
 
 double f_0(double x, int m, double alpha) {
     /* fonction f_0 condition limite sur Gamma_0 
     x: reel dont on veut calculer l'image */
-    return cos(M_PI*x);
+    double r = cos(M_PI*x) + 0.*alpha;
+    return r;
 }
 
 double f_3_ex(double x) {
@@ -30,8 +32,9 @@ double f_3_ex(double x) {
     //on recupere d'abord les donnees du probleme
     double H;
     H = recup_H(H);
-    // puis on retourne la fonction souhaitee
-    return cosh(M_PI*H)*cos(M_PI*x);
+    // puis on retourne la fonction souhaitee 
+    double r = cosh(M_PI)*cos(M_PI*x);
+    return r;
 }
 
 double q_0(double x) {
@@ -50,7 +53,9 @@ double inte_h(double x, int m, double alpha) {
     L = recup_L(L);
     H = recup_H(H);
     // puis on retourne la fonction souhaitee
-    return cos(m*M_PI*x/L);
+    //double r = f_0(x, m, 0.)*cos(m*M_PI*x/L);
+    double r = h(x);
+    return r;
 }
 
 double h(double x){
@@ -66,11 +71,12 @@ double h(double x){
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    S = -q_0(x) + (1/(L*H))*gauss(n,f_0,0,L,0,0);
+    /*S = -q_0(x) + (1/(L*H))*gauss(n,f_0,0,L,0,0);
     for (i = 1; i<=M; i++) {
         //S = S + (2*M_PI/pow(L,2)) * (i*cos(i*M_PI*x/L)/sinh(i*M_PI*x/L)) * f_0(x,i,0.) * cosh(i*M_PI*H/L) * gauss(n,inte_h,0,L,i,0);
-        S = S + (2*M_PI/pow(L,2)) * ((i*cos(i*M_PI*x/L))/sinh(i*M_PI*x/L))*f_0(x, i, 0.)*cosh(i*M_PI*H/L) * gauss(n,inte_h,0.,L,i,0.);
-    }
+        S = S + (2*M_PI/pow(L,2)) * ((i*cos(i*M_PI*x/L)*cosh(i*M_PI*H/L))/sinh(i*M_PI*H/L))* gauss(n,inte_h,0.,L,i,0.);
+    }*/
+    S = (M_PI/L)*(cos(M_PI*x/L)*cosh(M_PI*H/L))/sinh(M_PI*H/L); // on enleve la somme pour cet exemple
     return S;
 }
 
@@ -79,7 +85,8 @@ double inte_f3(double x, int m, double alpha) {
     //on recupere les donnees du probleme
     float L;
     L = recup_L(L);
-    return cos(m*M_PI*x/L)*h(x);
+    double r = cos(m*M_PI*x/L)*h(x)+ 0.*alpha;
+    return r;
 }
 
 double f_3(double x, double alpha){
@@ -90,17 +97,18 @@ double f_3(double x, double alpha){
     double S;
     //on recupere les donnees du probleme
     double L,H;
+    double a;
     int M,n;
     L = recup_L(L);
     H = recup_H(H);
     M = recup_M(M);
     n = recup_n(n);
 
-    S = (1./alpha)*h(x) - (1./alpha)*(H/(alpha*H + 1.));
+    a = (1./alpha);
+    S = a*h(x) - a*(H/(alpha*H + 1.))*gauss(n,inte_h,0,L,0,alpha);
     //printf("%f\n",S);
     for (i=1; i <= M; i++) {
-        S = S - (1./alpha)*((pow(L,2)*sinh((i*M_PI*H)/L)/(i*M_PI+alpha*pow(L,2)*sinh((i*M_PI*H)/L)))*cos((i*M_PI*x)/L)*gauss(n,inte_f3,0,L,i,alpha));
-        //printf("%f\n",S);
+        S = S - a * (L*sinh((i*M_PI*H)/L) / (i*M_PI+alpha*L*sinh((i*M_PI*H)/L))) * cos((i*M_PI*x)/L) * gauss(n,inte_f3,0,L,i,alpha); 
     }
     return S;
 }
@@ -115,7 +123,9 @@ double B0_f3_f0(double x, int m, double alpha){
     car en argument de gauss() il faut une fonction
     x: reel dont on veut calculer l'image */
     m = 0; // ici on a le terme 0 de la somme
-    return f_3(x,alpha)- f_0(x,m,alpha);
+    //double r = f_3(x,alpha)- f_0(x,m,alpha);
+    double r = f_3(x,alpha);
+    return r;
 }
 
 double Am_f3_f0(double x, int m, double alpha){
@@ -131,7 +141,8 @@ double Am_f3_f0(double x, int m, double alpha){
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (f_3(x,alpha) - exp((-m*M_PI*H)/L)*f_0(x,m,alpha))*cos((m*M_PI*x)/L);
+    double r = (f_0(x,m,alpha)- exp((-m*M_PI*H)/L)*f_3(x,alpha))*cos((m*M_PI*x)/L);
+    return r;
 }
 
 double Bm_f3_f0(double x, int m, double alpha) {
@@ -147,7 +158,8 @@ double Bm_f3_f0(double x, int m, double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (exp((m*M_PI*H)/L)*f_3(x,alpha) - f_0(x,m,alpha))*cos((m*M_PI*x)/L);
+    double r = (exp((m*M_PI*H)/L)*f_0(x,m,alpha) - f_3(x,alpha))*cos((m*M_PI*x)/L);
+    return r;
 }
 
 /************************
@@ -164,7 +176,8 @@ double A_0() {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (1/L)*gauss(n,f_0,0,L,0,0);
+    double r = (1/L)*gauss(n,f_0,0,L,0,0);
+    return r;
 }
 
 double B_0(double alpha) {
@@ -177,7 +190,8 @@ double B_0(double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (1/(L*H))*gauss(n,B0_f3_f0,0,L,0,alpha);
+    double r = (1/(L*H))*gauss(n,B0_f3_f0,0,L,0,alpha);
+    return r;
 }
 
 double A_m(int m, double alpha) {
@@ -190,7 +204,8 @@ double A_m(int m, double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (1/L*sinh((m*M_PI*H)/L))*gauss(n,Am_f3_f0,0,L,m,alpha);
+    double r = (1/(L*sinh((m*M_PI*H)/L)))*gauss(n,Am_f3_f0,0,L,m,alpha);
+    return r;
 }
 
 double B_m(int m, double alpha) {
@@ -203,7 +218,8 @@ double B_m(int m, double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    return (1/L*sinh((m*M_PI*H)/L))*gauss(n,Bm_f3_f0,0,L,m,alpha);
+    double r = (1/(L*sinh((m*M_PI*H)/L)))*gauss(n,Bm_f3_f0,0,L,m,alpha);
+    return r;
 }
 
 /************************
@@ -223,8 +239,10 @@ double T_tilde(double x, double y, double alpha) {
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
     T = A_0()+ B_0(alpha)*y;
+    //printf("%f\n", T);
     for (i = 1; i<=M; i++) {
         T = T + (A_m(i,alpha)*exp(i*M_PI*y/L) + B_m(i,alpha)*exp(-i*M_PI*y/L))*cos(i*M_PI*x/L);
+        //printf("%f\n", T);
     }
     return T;
 }

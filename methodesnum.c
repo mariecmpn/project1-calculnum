@@ -8,7 +8,7 @@
 
 double gauss(int n, double (*f)(double,int,double), double a, double b, int m, double alpha) {
     /* fonction pour calculer une integrale numeriquement par la methode de Gauss-Legendre
-    n: nombre de points de quadrature: 1, 2 ou 3
+    n: nombre de points de quadrature: 1, 2, 3, 4 ou 5
     f: la fonction dont on souhaite approcher l'integrale
     a: borne inf du domaine sur lequel on integre
     b: borne sup du domaine sur lequel on integre
@@ -21,8 +21,8 @@ double gauss(int n, double (*f)(double,int,double), double a, double b, int m, d
     float *T = malloc(sizeof(int[n])); // allocation dynamique du tableau T qui contient les points de quadrature
     float *Tp = malloc(sizeof(int[n])); // allocation dynamique du tableau T qui contient les poids de gauss
 
-    if (n!=1 && n!=2 && n!=3) { 
-        printf("%s", "Nombre de points de quadrature non defini (n = 1, 2 ou 3)");
+    if (n!=1 && n!=2 && n!=3 && n!=4 && n!=5) { 
+        printf("%s", "Nombre de points de quadrature non defini (n = 1, 2, 3, 4 ou 5)");
     }
     else {
         switch (n) { // on remplit les tableaux pour les poids et points de quadrature en fonction de n
@@ -43,6 +43,28 @@ double gauss(int n, double (*f)(double,int,double), double a, double b, int m, d
                 Tp[0] = 5./9.;
                 Tp[1] = 8./9.;
                 Tp[2] = 5./9.;
+                break;
+            case 4:
+                T[0] = -sqrt(3./7.-2./7.*sqrt(6./5.));
+                T[1] = -sqrt(3./7.+2./7.*sqrt(6./5.));
+                T[2] = sqrt(3./7.-2./7.*sqrt(6./5.));
+                T[3] = sqrt(3./7.+2./7.*sqrt(6./5.));
+                Tp[0] = (18.+sqrt(30.))/36;
+                Tp[1] = (18.-sqrt(30.))/36;
+                Tp[2] = (18.+sqrt(30.))/36;
+                Tp[3] = (18.-sqrt(30.))/36;
+                break;
+            case 5:
+                T[0] = 0;
+                T[1] = -(1./3.)*sqrt(5.-2.*sqrt(10./7.));
+                T[2] = -(1./3.)*sqrt(5.+2.*sqrt(10./7.));
+                T[3] = (1./3.)*sqrt(5.-2.*sqrt(10./7.));
+                T[4] = (1./3.)*sqrt(5.+2.*sqrt(10./7.));
+                Tp[0] = 128./155.;
+                Tp[1] = (322.+13.*sqrt(70.))/900.;
+                Tp[2] = (322.-13.*sqrt(70.))/900.;
+                Tp[3] = (322.+13.*sqrt(70.))/900.;
+                Tp[4] = (322.-13.*sqrt(70.))/900.;
         }
         Inte = 0.;
         for (i = 0; i < n; i++) { // on calcule notre integrale

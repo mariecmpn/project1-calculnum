@@ -6,18 +6,24 @@
 #include "methodesnum.h"
 #include "fonctions2.h"
 
-double derivee(double x, double y, double alpha) {
-    /* fonction qui calcule la derivee de T_tilde(x,y)-T_0(x)
+double derivee_T(double x, double y, double alpha) {
+    /* fonction qui calcule la derivee de T_tilde(x,y)
     x, y: coordonnees du point pour lequel on calcule la derivee
     alpha: parametre de Lavrentier utilise pour calculer f_3 */
+    double S = B_0(alpha);
+    double L = recup_L(L);
+    int i, M = recup_M(M);
+    for (i = 1; i <= M; i++) {
+        S = S + ((i*M_PI/L)*A_m(i,alpha)*exp((i*M_PI/L)*y) - (i*M_PI/L)*B_m(i,alpha)*exp((-i*M_PI/L)*y))*cos((i*M_PI/L)*x);
+    }
+    return S;
 }
+
 
 
 double T_0(double x) {
-    /* fonction qui calcule T_0 pour un x donne */
-
-}
-
-double trouver_y(double x, double alpha) {
-    /* fonction qui calcule y par la methode de Newton */
+    /* fonction qui calcule T_0 pour un x donne
+    on choisit une frontiere constante */
+    double r = T_ex(x,0.2);
+    return r;
 }

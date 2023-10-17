@@ -29,4 +29,4 @@ main2.o: main2.c fonctions2.h donnees.h fonctions.h methodesnum.h
 
 # Regle clean
 clean: 
-	rm *.o partie1
+	rm *.o partie1 partie2

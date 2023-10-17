@@ -16,10 +16,10 @@ double recup_H(float H) {
 
 int recup_M(float M) {
     /* fonction permettant de recuperer le nombre de termes pour les sommes infinies que l'on a tronque */
-    return 10;
+    return 50;
 }
 
 int recup_n(float n) {
     /* fonction permettant de recuperer le nombre de points de quadrature utilises pour la methode de Gauss-Legendre */
-    return 3;
+    return 5;
 }
