@@ -128,7 +128,7 @@ double B0_f3_f0(double x, int m, double alpha){
     return r;
 }
 
-double Am_f3_f0(double x, int m, double alpha){
+double Am_f3(double x, int m, double alpha){
     /* fonction a integer pour le coefficient A_m
     x: reel dont on veut calculer l'image
     m: indice m pour lequel on calcule A_m */
@@ -141,11 +141,28 @@ double Am_f3_f0(double x, int m, double alpha){
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    double r = (f_0(x,m,alpha)- exp((-m*M_PI*H)/L)*f_3(x,alpha))*cos((m*M_PI*x)/L);
+    double r = f_3(x,alpha)*cos((m*M_PI*x)/L);
     return r;
 }
 
-double Bm_f3_f0(double x, int m, double alpha) {
+double Am_f0(double x, int m, double alpha){
+    /* fonction a integer pour le coefficient A_m
+    x: reel dont on veut calculer l'image
+    m: indice m pour lequel on calcule A_m */
+    
+    //on recupere d'abord les donnees du probleme
+    double L,H;
+    int M,n;
+    L = recup_L(L);
+    H = recup_H(H);
+    M = recup_M(M);
+    n = recup_n(n);
+    // puis on retourne la fonction souhaitee
+    double r = (f_0(x,m,alpha) * exp((-m*M_PI*H)/L))*cos((m*M_PI*x)/L);
+    return r;
+}
+
+double Bm_f0(double x, int m, double alpha) {
     /* fonction a integer pour le coefficient B_m
     x: reel dont on veut calculer l'image
     m: indice m pour lequel on calcule B_m */
@@ -158,7 +175,24 @@ double Bm_f3_f0(double x, int m, double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    double r = (exp((m*M_PI*H)/L)*f_0(x,m,alpha) - f_3(x,alpha))*cos((m*M_PI*x)/L);
+    double r = exp((m*M_PI*H)/L)*f_0(x,m,alpha)*cos((m*M_PI*x)/L);
+    return r;
+}
+
+double Bm_f3(double x, int m, double alpha) {
+    /* fonction a integer pour le coefficient B_m
+    x: reel dont on veut calculer l'image
+    m: indice m pour lequel on calcule B_m */
+    
+    //on recupere d'abord les donnees du probleme
+    double L,H;
+    int M,n;
+    L = recup_L(L);
+    H = recup_H(H);
+    M = recup_M(M);
+    n = recup_n(n);
+    // puis on retourne la fonction souhaitee
+    double r = f_3(x,alpha)*cos((m*M_PI*x)/L);
     return r;
 }
 
@@ -176,8 +210,8 @@ double A_0() {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    double r = (1/L)*gauss(n,f_0,0,L,0,0);
-    return r;
+    //double r = (1/L)*gauss(n,f_0,0,L,0,0);
+    return 0.;
 }
 
 double B_0(double alpha) {
@@ -204,7 +238,7 @@ double A_m(int m, double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    double r = (1/(L*sinh((m*M_PI*H)/L)))*gauss(n,Am_f3_f0,0,L,m,alpha);
+    double r = (1/(L*sinh((m*M_PI*H)/L)))*(gauss(n,Am_f3,0,L,m,alpha) - gauss(n,Am_f0,0,L,m,alpha));
     return r;
 }
 
@@ -218,7 +252,7 @@ double B_m(int m, double alpha) {
     M = recup_M(M);
     n = recup_n(n);
     // puis on retourne la fonction souhaitee
-    double r = (1/(L*sinh((m*M_PI*H)/L)))*gauss(n,Bm_f3_f0,0,L,m,alpha);
+    double r = (1/(L*sinh((m*M_PI*H)/L)))*(gauss(n,Bm_f0,0,L,m,alpha) - gauss(n,Bm_f3,0,L,m,alpha));
     return r;
 }
 

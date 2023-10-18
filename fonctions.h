@@ -27,8 +27,10 @@ double f_3(double x, double alpha);
 **************************/
 
 double B0_f3_f0(double x, int m, double alpha);
-double Am_f3_f0(double x, int m, double alpha);
-double Bm_f3_f0(double x, int m, double alpha);
+double Am_f3(double x, int m, double alpha);
+double Am_f0(double x, int m, double alpha);
+double Bm_f3(double x, int m, double alpha);
+double Bm_f0(double x, int m, double alpha);
 
 /************************
  fonctions coefficients
