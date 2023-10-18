@@ -19,7 +19,11 @@ double derivee_T(double x, double y, double alpha) {
     return S;
 }
 
-
+double Gamma_ex(double x) {
+    /* fonction de la frontiere libre exacte cherchee
+    x: point de Gamma_0 */
+    return 0.2;
+}
 
 double T_0(double x) {
     /* fonction qui calcule T_0 pour un x donne

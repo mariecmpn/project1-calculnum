@@ -29,3 +29,7 @@ COMPILATION:
 regle 'partie1': compile le code pour la partie 1 du projet (question 4)
 regle 'partie2': compile le code pour la partie 2 du projet (question 6)
 regle 'clean': supprime les fichiers binaires et les fichiers executables
+
+EXECUTION:
+
+On peut executer les fichiers dans un terminal puis recuperer les resultats dans les codes python. Ou on peut directement executer les codes python qui executent partie1 et partie2 puis creer les graphiques.

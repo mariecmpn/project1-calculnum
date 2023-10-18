@@ -12,8 +12,8 @@ int main() {
      definition des variables 
     ****************************/ 
 
-    int i, j; // entier pour les boucles for
-    int N = 50; // nombre de points de maillage en x
+    int i, j; // entiers pour les boucles for
+    int N = 51; // nombre de points de maillage en x
     double pas = 1./(N-1); // pas de maillage en x
     double *Points = malloc(sizeof(int[N])); // tableau qui contient les valeurs des x_i
     double *Y = malloc(sizeof(int[N])); // tableau qui contient les y_i
@@ -29,17 +29,21 @@ int main() {
 
     double y = H; // on se place sur Gamma_3
 
+
+
     /***************************
      remplissage des tableaux
     ****************************/ 
 
     // remplissage de Points
-    double x_i = 0.;
+    /*double x_i = 0.;
     for (i = 0; i<N; i++) {
         Points[i] = x_i;
         x_i  = x_i+pas;
         //printf("%f\n", Points[i]);
-    }
+    }*/
+
+    // OK
 
     // remplissage de Alpha
     Alpha[0] = 10.;
@@ -48,12 +52,18 @@ int main() {
         Alpha[i] = 1./pow(10.,i+1);
     }
 
-    // remplissage de Y
+    // OK
+
+    // remplissage de Y et de Points
+    double x_i = 0.;
     double y_i = 0.;
     for (i = 0; i<N; i++) {
         Y[i] = y_i;
         y_i  = y_i+pas;
+        Points[i] = x_i;
+        x_i  = x_i+pas;
     }
+
 
     /*double alpha = 0.1;
     for (i = 0; i<M; i++) {
@@ -85,7 +95,6 @@ int main() {
      approchee
     ****************************/ 
 
-
     y = H; // on se place sur Gamma_3
     FILE *approche;
     approche = fopen("approche_1.txt", "w"); // on ouvre le fichier en ecriture
@@ -110,8 +119,14 @@ int main() {
     for (i = 0; i<N; i++) {
         //T_exact[i] = f_3_ex(Points[i]); // calcul de T sur Gamma_3 
         T_exact[i] = cosh(M_PI*H)*cos(M_PI*Points[i]);
+        //printf("%f%s", Points[i], " ");
+        //printf("%f\n", T_exact[i]);
         fprintf(exact, "%f", T_exact[i]); // on ecrit dans le fichier
         fputs(" ", exact);
+    }
+
+    for (i = 0;i<N;i++) {
+        printf("%f\n", Points[i]);
     }
 
     fclose(exact); // on ferme le fichier

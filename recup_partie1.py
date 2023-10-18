@@ -5,6 +5,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d
 import os
 
 #%% definition des variables
@@ -19,14 +20,10 @@ Alpha[1] = 1.
 for i in range(2,22):
     Alpha[i] = 10**(-(i-1))
     
-N = 50 #nombre de points de maillage pour x
-h = L/(N-1) #pas de maillage
-
-X = np.zeros(N)
-x = 0.
-for i in range(N):
-    X[i] = x
-    x = x+h
+N = 51 #nombre de points de maillage pour x
+    
+X = np.linspace(0.,L,N)
+Y = np.linspace(0.,H,N)
   
 #%% execution du programme partie1
 
@@ -96,9 +93,63 @@ plt.show()
 
 #%% lecture des fichiers pour un alpha donne = 1.
 
+alpha = 1.
+
 file = open('solapp_omega.txt', 'r')
 data = file.read()
 SolApp = data.split()
 SolApp = [float(i) for i in SolApp]
 SolApp = np.array(SolApp)
-SolApp = np.split(SolApp, 50)
+SolApp = np.split(SolApp, N)
+Z = np.vstack(SolApp)
+
+file = open('solex_omega.txt', 'r')
+data = file.read()
+SolEx = data.split()
+SolEx = [float(i) for i in SolEx]
+SolEx = np.array(SolEx)
+SolEx = np.split(SolEx, N)
+Zex = np.vstack(SolEx)
+
+file = open('erreur_omega.txt', 'r')
+data = file.read()
+ERR = data.split()
+ERR = [float(i) for i in ERR]
+ERR = np.array(ERR)
+ERR = np.split(ERR, N)
+Zerr = np.vstack(ERR)
+
+
+#%% graphiques pour un alpha donne
+
+# Tracé du résultat en 3D
+#ax = plt.figure().add_subplot(projection = '3d')
+#X,Y = np.meshgrid(X,Y)
+#ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap='viridis', edgecolor='none')
+
+# solution approchee
+h = plt.contourf(X, Y, Z)
+plt.axis('scaled')
+plt.colorbar()
+plt.title('Solution approchee pour alpha = '+str(alpha))
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+
+#solution exacte
+h = plt.contourf(X, Y, Zex)
+plt.axis('scaled')
+plt.colorbar()
+plt.title('Solution exacte')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+
+#erreur
+h = plt.contourf(X, Y, Zerr)
+plt.axis('scaled')
+plt.colorbar()
+plt.title('Erreur: T_ex-T_cal')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
