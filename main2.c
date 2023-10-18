@@ -13,10 +13,10 @@ int main() {
     ****************************/ 
 
     int i, j; // entiers pour les boucles for
-    int N = 50; // nombre de points de maillage en x
+    int N = 51; // nombre de points de maillage en x
     double pas = 1./(N-1); // pas de maillage en x
     double *Points = malloc(sizeof(int[N])); // tableau qui contient les valeurs des x_i
-    double eps = 1.E-6; // tolerance epsilon pour la methode de Newton
+    double eps = 1.E-8; // tolerance epsilon pour la methode de Newton
 
     // recuperation des donnees du probleme definies dans donnees.c
     double L = recup_L(L), H = recup_H(H);
@@ -31,13 +31,6 @@ int main() {
      remplissage des tableaux
     ****************************/ 
 
-    // remplissage de Points
-    double x_i = 0.;
-    for (i = 0; i<N; i++) {
-        Points[i] = x_i;
-        x_i  = x_i+pas;
-    }
-
     // remplissage de Gamma_exact
     for (i = 0; i<N; i++) {
         Gamma_exact[i] = Gamma_ex(Points[i]);
@@ -50,14 +43,41 @@ int main() {
         Alpha[i] = 1./pow(10.,i+1);
     }
 
+
     /***************************
      Calcul de la frontiere libre
      pour plusieurs alpha
     ****************************/ 
 
-   
+   FILE *exact;
+   exact = fopen("frontiere_ex.txt", "w");
+   FILE *approche;
+   approche = fopen("frontiere_app.txt", "w");
+   for (i=0; i<22;i++) {
+        double x_i = 0.;
+        for (j=0; j<N; j++) {
+            Points[j] = x_i;
+            x_i  = x_i+pas;
+            Gamma_app[j] = newton(Points[j],fonction_T,derivee_T,eps,Alpha[i]);
+            Gamma_exact[j] = Gamma_ex(Points[j]);
+            fprintf(approche, "%f", Gamma_app[j]); // on l'enregistre dans le fichier frontiere_app.txt
+            fputs(" ", approche);
+            fprintf(exact, "%f", Gamma_exact[j]); // on l'enregistre dans le fichier frontiere_ex.txt
+            fputs(" ", exact);
 
+        }
+        fputs("\n", approche); // on change de ligne quand on change de alpha
+        fputs("\n", exact); // on change de ligne quand on change de alpha
+   }
 
+    // on ferme les fichiers qu'on a ouvert
+    fclose(exact);
+    fclose(approche);
+
+    // on desalloue l'espace memoire des tableaux alloues dynamiquement
+    free(Points);
+    free(Gamma_app);
+    free(Gamma_exact);
 
     // on retourne 0
     return 0;

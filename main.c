@@ -43,8 +43,6 @@ int main() {
         //printf("%f\n", Points[i]);
     }*/
 
-    // OK
-
     // remplissage de Alpha
     Alpha[0] = 10.;
     Alpha[1] = 1.;
@@ -52,42 +50,17 @@ int main() {
         Alpha[i] = 1./pow(10.,i+1);
     }
 
-    // OK
 
     // remplissage de Y et de Points
     double x_i = 0.;
-    double y_i = 0.;
+    //double y_i = 0.;
     for (i = 0; i<N; i++) {
-        Y[i] = y_i;
-        y_i  = y_i+pas;
+        //Y[i] = y_i;
+        //y_i  = y_i+pas;
         Points[i] = x_i;
         x_i  = x_i+pas;
     }
 
-
-    /*double alpha = 0.1;
-    for (i = 0; i<M; i++) {
-        double hh = B_0(alpha);
-        printf("%f\n",hh);
-    }*/
-
-    // test f_3
-    /*double x = 0.4;
-    float app, ex;
-
-    app = f_3(x,1.);
-    ex = f_3_ex(x);
-
-    printf("%s%f\n", "Valeur approchee ", app);
-    printf("%s%f\n", "Valeur exacte ", ex);*/
-
-
-    /*double alpha = 1.E-1;
-    //y = (1./alpha)*h(x);
-    y = h(x);
-    printf("%f\n", y);
-    y = (1./alpha)*(H/(alpha*H + 1.));
-    printf("%f\n", y);*/
 
     /***************************
      Calcul pour plusieurs alpha
@@ -117,16 +90,12 @@ int main() {
     FILE *exact;
     exact = fopen("exact_1.txt", "w"); // on ouvre le fichier
     for (i = 0; i<N; i++) {
-        //T_exact[i] = f_3_ex(Points[i]); // calcul de T sur Gamma_3 
-        T_exact[i] = cosh(M_PI*H)*cos(M_PI*Points[i]);
+        T_exact[i] = f_3_ex(Points[i]); // calcul de T sur Gamma_3 
+        //T_exact[i] = cosh(M_PI*H)*cos(M_PI*Points[i]);
         //printf("%f%s", Points[i], " ");
         //printf("%f\n", T_exact[i]);
         fprintf(exact, "%f", T_exact[i]); // on ecrit dans le fichier
         fputs(" ", exact);
-    }
-
-    for (i = 0;i<N;i++) {
-        printf("%f\n", Points[i]);
     }
 
     fclose(exact); // on ferme le fichier
@@ -146,21 +115,32 @@ int main() {
     erreur = fopen("erreur_omega.txt", "w");
 
     // on calcule les solutions exactes et approchees pour tous les points de maillage du domaine
+    double y_i = 0.;
+    x_i = 0.;
     for (j = 0; j < N; j++) {
+        Y[j] = y_i;
+        printf("%f\n", Y[j]);
+        x_i = 0.;
         for (i = 0; i < N; i++) {
+            Points[i] = x_i;
+            x_i  = x_i+pas;
             T_app[i] = T_tilde(Points[i], Y[j], alpha_optim); 
             T_exact[i] = T_ex(Points[i], Y[j]);
             fprintf(app_omega, "%lf", T_app[i]);
             fputs(" ", app_omega);
             fprintf(ex_omega, "%lf", T_exact[i]);
             fputs(" ", ex_omega);
-            fprintf(erreur, "%lf", T_exact[i]-T_app[i]);
+            fprintf(erreur, "%lf", fabs(T_exact[i]-T_app[i]));
             fputs(" ", erreur);
+            printf("%f\n", Points[i]);
         }
         fputs("\n", app_omega); // on change de ligne quand on change de y_i
         fputs("\n", ex_omega);
         fputs("\n", erreur);
+        y_i  = y_i+pas;
     }
+
+
     // on ferme les fichiers
     fclose(app_omega); 
     fclose(ex_omega);

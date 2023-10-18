@@ -77,15 +77,15 @@ plt.plot(X, Ex)
 plt.title('Solution exacte T_ex sur Gamma_3')
 plt.show()
 
-plt.plot(X, T_alpha[0])
+plt.plot(X, T_alpha[1])
 plt.title('Solution approchee T_app sur Gamma_3')
 plt.show()
 
 
 #%% 
 
-#def f_3(x):
-    #return np.cosh(np.pi*H)*np.cos(np.pi*x)
+def f(x,y):
+    return np.cosh(np.pi*y)*np.cos(np.pi*x)
 
 #plt.plot(X, f_3(X))
 #plt.show()
@@ -152,4 +152,11 @@ plt.colorbar()
 plt.title('Erreur: T_ex-T_cal')
 plt.xlabel('x')
 plt.ylabel('y')
+plt.show()
+
+X,Y = np.meshgrid(X,Y)
+h = plt.contourf(X, Y, f(X,Y))
+plt.axis('scaled')
+plt.colorbar()
+plt.title('Test python')
 plt.show()

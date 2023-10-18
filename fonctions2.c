@@ -22,12 +22,20 @@ double derivee_T(double x, double y, double alpha) {
 double Gamma_ex(double x) {
     /* fonction de la frontiere libre exacte cherchee
     x: point de Gamma_0 */
-    return 0.2;
+    return 0.3;
 }
 
 double T_0(double x) {
     /* fonction qui calcule T_0 pour un x donne
     on choisit une frontiere constante */
     double r = T_ex(x,0.2);
+    return r;
+}
+
+double fonction_T(double x, double y, double alpha) {
+    /* fonction qui retourne la fonction utilisee pour Newton: T_tilde(x,y) - T_0(x) (pour un alpha et x donne)
+    x,y: coordonnees dont on veut calculer l'image
+    alpha: parametre de Lavrentier utilise dans l'approximation de T_tilde */
+    double r = T_tilde(x,y,alpha) - T_0(x);
     return r;
 }
