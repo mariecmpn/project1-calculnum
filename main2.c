@@ -4,7 +4,7 @@
 #include "fonctions.h"
 #include "donnees.h" 
 #include "methodesnum.h"
-#include "fonctions2.c"
+#include "fonctions2.h"
 
 int main() {
 
@@ -49,26 +49,35 @@ int main() {
      pour plusieurs alpha
     ****************************/ 
 
-   FILE *exact;
-   exact = fopen("frontiere_ex.txt", "w");
-   FILE *approche;
-   approche = fopen("frontiere_app.txt", "w");
-   for (i=0; i<22;i++) {
-        double x_i = 0.;
-        for (j=0; j<N; j++) {
-            Points[j] = x_i;
-            x_i  = x_i+pas;
-            Gamma_app[j] = newton(Points[j],fonction_T,derivee_T,eps,Alpha[i]);
-            Gamma_exact[j] = Gamma_ex(Points[j]);
-            fprintf(approche, "%f", Gamma_app[j]); // on l'enregistre dans le fichier frontiere_app.txt
-            fputs(" ", approche);
-            fprintf(exact, "%f", Gamma_exact[j]); // on l'enregistre dans le fichier frontiere_ex.txt
-            fputs(" ", exact);
+   double x_i;
+    FILE *approche;
+    approche = fopen("frontiere_app.txt", "w");
+    for (i=0; i<22;i++) {
+            x_i = 0.;
+            for (j=0; j<N; j++) {
+                Points[j] = x_i;
+                x_i  = x_i+pas;
+                Gamma_app[j] = newton(Points[j],fonction_T,derivee_T,eps,Alpha[i]);
+                fprintf(approche, "%f", Gamma_app[j]); // on l'enregistre dans le fichier frontiere_app.txt
+                fputs(" ", approche);
+            }
+            fputs("\n", approche); // on change de ligne quand on change de alpha
+    }
 
-        }
-        fputs("\n", approche); // on change de ligne quand on change de alpha
-        fputs("\n", exact); // on change de ligne quand on change de alpha
-   }
+    /***************************
+     Calcul de la solution exacte
+     ****************************/ 
+
+    FILE *exact;
+    exact = fopen("frontiere_ex.txt", "w");
+    x_i = 0.;
+    for (j = 0; j < N; j++) {
+        Points[j] = x_i;
+        x_i  = x_i+pas;
+        Gamma_exact[j] = Gamma_ex(Points[j]);
+        fprintf(exact, "%f", Gamma_exact[j]); // on l'enregistre dans le fichier frontiere_ex.txt
+        fputs(" ", exact);
+    }
 
     // on ferme les fichiers qu'on a ouvert
     fclose(exact);

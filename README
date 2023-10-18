@@ -20,6 +20,7 @@ CONTENU DU DOSSIER:
 - fonctions2.c: code en C des fonctions utilisees pour la partie 2 du projet (qui dependent des fonctions de la partie1);
 - fonctions2.h: fichier header de fonctions2.c;
 - main2.c: programme principal pour la partie 2 du projet (determination de la frontiere libre);
+- recup_partie2.py: code en Python qui permet de creer les graphiques des solutions pour la partie 2;
 - Compte-rendu_COMPAIN.pdf: Compte-rendu du projet au format pdf;
 - Compte-rendu_COMPAIN.tex: Compte-rendu du projet au format tex.
 

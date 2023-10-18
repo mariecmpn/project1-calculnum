@@ -55,17 +55,13 @@ App = np.array(Approche)
 # On divise le tableau en 20 tableaux (1 tableau pour chaque alpha)
 Gamma_alpha = np.split(App, 22)
 
-#%% calcul des erreurs
 
-Err = np.zeros(22)
-for i in range(22):
-    Err[i] = np.linalg.norm(Gamma_alpha[i] - Ex)
  
 #%% graphiques
 
 alpha = 1
 plt.plot(X, Ex, label = 'frontiere exacte')
-plt.plot(X, T_alpha[alpha], label = 'frontiere approchee')
+plt.plot(X, Gamma_alpha[alpha], label = 'frontiere approchee')
 plt.legend()
 plt.title('SFrontieres Gamma exacte et approchee')
 plt.show()
