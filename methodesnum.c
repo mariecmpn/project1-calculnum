@@ -84,7 +84,7 @@ double newton(double x, double (*fonction)(double,double,double), double (*deriv
     x: point de Gamma_0 fixe pour lequel on cherche y
     fonction: fonction pour laquelle on cherche y telle que f(x,y) = 0
     derivee: derivee par rapport a y de notre fonction
-    eps: tolerance epsilon */
+    eps: tolerance epsilon pour l'approximation de y */
 
     double H = recup_H(H);
     double a = H/2.; // on commence au milieu

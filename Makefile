@@ -1,7 +1,6 @@
 # Compiler used
+# Changer le nom du compilateur si besoin
 CC = gcc-11
-PATH1 = Pb_Cauchy/
-PATH2 = Frontiere/
 
 # Regles pour la partie 1 du projet
 partie1: main.o methodesnum.o donnees.o fonctions.o

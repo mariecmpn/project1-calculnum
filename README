@@ -22,7 +22,8 @@ CONTENU DU DOSSIER:
 - main2.c: programme principal pour la partie 2 du projet (determination de la frontiere libre);
 - recup_partie2.py: code en Python qui permet de creer les graphiques des solutions pour la partie 2;
 - Compte-rendu_COMPAIN.pdf: Compte-rendu du projet au format pdf;
-- Compte-rendu_COMPAIN.tex: Compte-rendu du projet au format tex.
+- Compte-rendu_COMPAIN.tex: Compte-rendu du projet au format tex;
+- IMAGES: dossier qui contient toutes les images présentes dans le compte-rendu.
 
 
 COMPILATION:

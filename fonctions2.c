@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "donnees.h"
-#include "fonctions.h"
-#include "methodesnum.h"
-#include "fonctions2.h"
+#include "donnees.h" // besoin des donnees du probleme
+#include "fonctions.h" // besoin des fonctions de la partie 1 pour calculer T_tilde
+#include "methodesnum.h" // besoin de la methode de Newton
+#include "fonctions2.h" // header de ce fichier
 
 double derivee_T(double x, double y, double alpha) {
     /* fonction qui calcule la derivee de T_tilde(x,y)
@@ -22,13 +22,13 @@ double derivee_T(double x, double y, double alpha) {
 double Gamma_ex(double x) {
     /* fonction de la frontiere libre exacte cherchee
     x: point de Gamma_0 */
-    return 0.3;
+    return 0.5*x + 0.3;
 }
 
 double T_0(double x) {
     /* fonction qui calcule T_0 pour un x donne
     on choisit une frontiere constante */
-    double r = T_ex(x,0.2);
+    double r = T_ex(x,Gamma_ex(x));
     return r;
 }
 

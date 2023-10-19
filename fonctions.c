@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "fonctions.h"
+#include "fonctions.h" // header de ce fichier
 #include "donnees.h" // besoin des donnees du probleme
 #include "methodesnum.h" // besoin de la methode de quadrature de gauss-legendre
 
@@ -162,7 +162,7 @@ double Am_f0(double x, int m, double alpha){
 }
 
 double Bm_f0(double x, int m, double alpha) {
-    /* fonction a integer pour le coefficient B_m
+    /* fonction a integer pour le coefficient B_m ()
     x: reel dont on veut calculer l'image
     m: indice m pour lequel on calcule B_m */
     

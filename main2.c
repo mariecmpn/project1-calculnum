@@ -58,8 +58,8 @@ int main() {
             for (j=0; j<N; j++) {
                 Points[j] = x_i;
                 x_i  = x_i+pas;
-                Gamma_app[j] = newton(Points[j],fonction_T,derivee_T,eps,Alpha[i]);
-                fprintf(approche, "%f", Gamma_app[j]); // on l'enregistre dans le fichier frontiere_app.txt
+                Gamma_app[j] = newton(x_i,fonction_T,derivee_T,eps,Alpha[i]);
+                fprintf(approche, "%g", Gamma_app[j]); // on l'enregistre dans le fichier frontiere_app.txt
                 fputs(" ", approche);
             }
             fputs("\n", approche); // on change de ligne quand on change de alpha
@@ -76,7 +76,7 @@ int main() {
         Points[j] = x_i;
         x_i  = x_i+pas;
         Gamma_exact[j] = Gamma_ex(Points[j]);
-        fprintf(exact, "%f", Gamma_exact[j]); // on l'enregistre dans le fichier frontiere_ex.txt
+        fprintf(exact, "%g", Gamma_exact[j]); // on l'enregistre dans le fichier frontiere_ex.txt
         fputs(" ", exact);
     }
 

@@ -79,7 +79,7 @@ int main() {
         for (j = 0; j < Nx; j++) {
             T_app[j] = f_3(Points[j], Alpha[i]); // on calcule T_tilde pour alpha et x_i: sur Gamma_3 T_tilde = f_3 Alpha[i]
             //printf("%f", Points[j]);
-            fprintf(approche, "%f", T_app[j]); // on l'enregistre dans le fichier approche_1.txt
+            fprintf(approche, "%g", T_app[j]); // on l'enregistre dans le fichier approche_1.txt
             fputs(" ", approche);
         }
         fputs("\n", approche); // on change de ligne quand on change de alpha
@@ -99,7 +99,7 @@ int main() {
         //T_exact[i] = cosh(M_PI*H)*cos(M_PI*Points[i]);
         //printf("%f%s", Points[i], " ");
         //printf("%f\n", T_exact[i]);
-        fprintf(exact, "%f", T_exact[i]); // on ecrit dans le fichier
+        fprintf(exact, "%g", T_exact[i]); // on ecrit dans le fichier
         fputs(" ", exact);
     }
 
@@ -131,9 +131,9 @@ int main() {
             T_app[i] = T_tilde(x_i, y_i, alpha_optim); 
             T_exact[i] = T_ex(x_i, y_i);
             //T_exact[i] = cosh(M_PI*y_i)*cos(M_PI*x_i);
-            fprintf(app_omega, "%lf", T_app[i]);
+            fprintf(app_omega, "%g", T_app[i]);
             fputs(" ", app_omega);
-            fprintf(ex_omega, "%lf", T_exact[i]);
+            fprintf(ex_omega, "%g", T_exact[i]);
             fputs(" ", ex_omega);
             fprintf(erreur, "%lf", fabs(T_exact[i]-T_app[i]));
             fputs(" ", erreur);

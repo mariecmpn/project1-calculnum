@@ -130,7 +130,7 @@ Zerr = np.vstack(ERR)
 
 
 # solution approchee
-clev = np.arange(Z.min(),Z.max(),1.)
+clev = np.arange(Z.min(),Z.max(),0.1)
 h = plt.contourf(X, Y, Z, clev)
 plt.axis('scaled')
 plt.colorbar()
@@ -140,7 +140,7 @@ plt.ylabel('y')
 plt.show()
 
 #solution exacte
-clev = np.arange(Zex.min(),Zex.max(),1.)
+clev = np.arange(Zex.min(),Zex.max(),0.1)
 h = plt.contourf(X, Y, Zex, clev)
 plt.axis('scaled')
 plt.colorbar()
@@ -150,7 +150,7 @@ plt.ylabel('y')
 plt.show()
 
 #erreur
-clev = np.arange(Zerr.min(),Zerr.max(),1.)
+clev = np.arange(Zerr.min(),Zerr.max(),0.1)
 h = plt.contourf(X, Y, Zerr, clev)
 plt.axis('scaled')
 plt.colorbar()
