@@ -27,6 +27,7 @@ int main() {
     double *Gamma_app = malloc(sizeof(int[N])); // tableau qui contient les images des x_i par T_alpha calculees numeriquement
     double *Gamma_exact = malloc(sizeof(int[N])); // tableau qui contient les images des x_i par T_ex calculees numeriquement
 
+
     /***************************
      remplissage des tableaux
     ****************************/ 

@@ -39,3 +39,4 @@ double fonction_T(double x, double y, double alpha) {
     double r = T_tilde(x,y,alpha) - T_0(x);
     return r;
 }
+

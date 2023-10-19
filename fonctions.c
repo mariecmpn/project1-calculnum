@@ -122,9 +122,8 @@ double B0_f3_f0(double x, int m, double alpha){
     /* fonction a integer pour le coefficient B_0
     car en argument de gauss() il faut une fonction
     x: reel dont on veut calculer l'image */
-    m = 0; // ici on a le terme 0 de la somme
     //double r = f_3(x,alpha)- f_0(x,m,alpha);
-    double r = f_3(x,alpha);
+    double r = f_3(x,alpha) + m*0.;
     return r;
 }
 

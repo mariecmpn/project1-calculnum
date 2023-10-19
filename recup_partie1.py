@@ -5,6 +5,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 from mpl_toolkits.mplot3d import axes3d
 import os
 
@@ -127,8 +128,10 @@ Zerr = np.vstack(ERR)
 #X,Y = np.meshgrid(X,Y)
 #ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap='viridis', edgecolor='none')
 
+
 # solution approchee
-h = plt.contourf(X, Y, Z)
+clev = np.arange(Z.min(),Z.max(),1.)
+h = plt.contourf(X, Y, Z, clev)
 plt.axis('scaled')
 plt.colorbar()
 plt.title('Solution approchee pour alpha = '+str(alpha))
@@ -137,7 +140,8 @@ plt.ylabel('y')
 plt.show()
 
 #solution exacte
-h = plt.contourf(X, Y, Zex)
+clev = np.arange(Zex.min(),Zex.max(),1.)
+h = plt.contourf(X, Y, Zex, clev)
 plt.axis('scaled')
 plt.colorbar()
 plt.title('Solution exacte')
@@ -146,7 +150,8 @@ plt.ylabel('y')
 plt.show()
 
 #erreur
-h = plt.contourf(X, Y, Zerr)
+clev = np.arange(Zerr.min(),Zerr.max(),1.)
+h = plt.contourf(X, Y, Zerr, clev)
 plt.axis('scaled')
 plt.colorbar()
 plt.title('Erreur: T_ex-T_cal')
@@ -154,9 +159,9 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.show()
 
-X,Y = np.meshgrid(X,Y)
-h = plt.contourf(X, Y, f(X,Y))
-plt.axis('scaled')
-plt.colorbar()
-plt.title('Test python')
-plt.show()
+#X,Y = np.meshgrid(X,Y)
+#h = plt.contourf(X, Y, f(X,Y))
+#lt.axis('scaled')
+#plt.colorbar()
+#plt.title('Test python')
+#plt.show()
