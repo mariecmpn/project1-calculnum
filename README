@@ -34,4 +34,4 @@ regle 'clean': supprime les fichiers binaires et les fichiers executables
 
 EXECUTION:
 
-On peut executer les fichiers dans un terminal puis recuperer les resultats dans les codes python. Ou on peut directement executer les codes python qui executent partie1 et partie2 puis creer les graphiques.
+On peut executer les fichiers dans un terminal puis recuperer les resultats dans les codes python. Ou on peut directement executer les codes python qui executent partie1 et partie2 puis creent les graphiques.
